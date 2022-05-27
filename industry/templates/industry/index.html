@@ -2,7 +2,7 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Industry Index</h3>
+            <h3 class="panel-title">Industry Index for {{ character_data.character_name }}</h3>
         </div>
         <div class="panel-body" style="min-height: 100px">
 
@@ -13,6 +13,19 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
+        <div class="pull-right action-buttons">
+            <a href="{% url 'industry:selector' %}" class="btn btn-info">Add Character</a>
+        </div>
+
+        <div class="users-panel">
+            {% for t in user_tokens %}
+                <div class="">
+                    <a href="{% url 'industry:list_jobs' t.pk %}"><img src="https://images.evetech.net/characters/{{  t.token.character_id }}/portrait?size=64"
+                        title="{{ t.token.character_name }}"></a>
+                </div>
+            {% endfor %}
+        </div>
 
         <table class="table table-responsive table-striped table-hover table-aa table-dark ">
             <thead>
@@ -44,6 +57,10 @@
 
     </div>
 
+    <div class="delete-user">
+        <a href="{% url 'industry:character-delete' character_data.token_id %}" class="btn btn-danger">Delete {{ character_data.character_name }}</a>
+
+    </div>
 
 {% endblock %}
 {% block extra_javascript %}
@@ -153,6 +170,28 @@
         font-size: larger;
         //color: #f0f0f0;
         color: #000fff;
+    }
+
+    .activity-description {
+        display: flex;
+        height: 32px;
+        align-items: center;
+    }
+
+    .users-panel {
+        display: flex;
+        gap: 10px;
+    }
+
+    .users-panel img:hover {
+      border: solid 2px lightskyblue;
+      margin: -2px;
+    }
+
+    .delete-user {
+        display: flex;
+        //margin-right: 5px;
+        justify-content: end;
     }
 
 </style>

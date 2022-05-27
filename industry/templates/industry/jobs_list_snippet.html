@@ -7,15 +7,17 @@
 
     <td class="table-center">{{ i.station_name }}</td>
 
-    <td class="table-center">
-        {% if i.is_corp_job %}
-            <img title="Corporation Job - {{ i.installer_name }}"
+    <td class="">
+        <div class="activity-description">
+            {% if i.is_corp_job %}
+                <img title="Corporation Job - {{ i.installer_name }}"
                     src="https://images.evetech.net/characters/{{ i.installer_id }}/portrait?size=32" />
-        {% endif %}
+            {% endif %}
 
-        {{ i.activity_id }}
-        <!-- img class="activity-icon" src="{% static 'industry/images/copying.png' %}" />
-        <img class="activity-icon" src="{% static 'industry/images/Icon_Copying.png' %}" / -->
+            <span style="margin-left: 5px">{{ i.activity_id }}</span>
+            <!-- img class="activity-icon" src="{% static 'industry/images/copying.png' %}" />
+            <img class="activity-icon" src="{% static 'industry/images/Icon_Copying.png' %}" / -->
+        </div>
     </td>
 
     <td class="">
