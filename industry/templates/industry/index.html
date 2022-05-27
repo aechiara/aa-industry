@@ -76,12 +76,12 @@
             let endElement = document.getElementById(`end_date_${i.value}`)
             //console.log(`id ${i.id} start: ${startElement.textContent} - end: ${endElement.textContent}`)
 
-            let ds = new Date(startElement.textContent + "Z")
-            let de = new Date(endElement.textContent + "Z")
+            let ds = new Date(startElement.textContent.trim() + "Z")
+            let de = new Date(endElement.textContent.trim() + "Z")
 
             let perc = ((new Date().getTime() - ds.getTime()) * 100) / (de.getTime() - ds.getTime())
             perc = ( perc > 100 ? 100 : perc)
-            {#console.log(`perc => ${parseInt(perc)}`)#}
+            console.log(`perc => ${parseInt(perc)}`)
 
 
             //console.log(`timeRemaining => ${dhm_dates(timeRemaining)}`)

@@ -56,6 +56,10 @@ def list_jobs(request, pk_token):
 
     ut = UserToken.objects.get(pk=pk_token)
 
+    if ut.user.pk != request.user.pk:
+        logger.warn(f'user {request.user.profile.main_character} trying to access a service that he does not own {pk_token}')
+        return redirect('industry:selector')
+
     if not ut:
         return redirect('industry:selector')
 
