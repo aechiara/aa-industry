@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: aa-industry
+Version: 0.0.1
+Summary: Industry plugin app for Alliance Auth
+Author: AlexBR Plasmodio
+Author-email: aechiara@gmail.com
+License: MIT
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: ~=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Order Sheet plugin app for Alliance Auth
+
+This is an Industry plugin app for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth) (AA) that can be used as starting point to develop custom plugins.
+
+![License](https://img.shields.io/badge/license-MIT-green)
+![python](https://img.shields.io/badge/python-3.6-informational)
+![django](https://img.shields.io/badge/django-3.1-informational)
+![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
+
+## Contribute
+
+If you made a new app for AA please consider sharing it with the rest of the community. For any questions on how to share your app please contact the AA devs on their Discord. You find the current community creations [here](https://gitlab.com/allianceauth/community-creations).

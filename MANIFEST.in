@@ -1,0 +1,5 @@
+include LICENSE
+include README.md
+recursive-include ordersheet *.py
+recursive-include ordersheet/static *
+recursive-include ordersheet/templates *
