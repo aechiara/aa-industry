@@ -1,11 +1,10 @@
-# Order Sheet plugin app for Alliance Auth
+# Industry plugin app for Alliance Auth
 
 This is an Industry plugin app for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth) (AA) that can be used as starting point to develop custom plugins.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![python](https://img.shields.io/badge/python-3.6-informational)
 ![django](https://img.shields.io/badge/django-3.1-informational)
-![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 
 ## Contribute
 
