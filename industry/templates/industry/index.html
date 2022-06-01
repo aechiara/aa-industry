@@ -21,20 +21,21 @@
         <div class="users-panel">
             {% for t in user_tokens %}
                 <div class="">
-                    <a href="{% url 'industry:list_jobs' t.pk %}"><img src="https://images.evetech.net/characters/{{  t.token.character_id }}/portrait?size=64"
-                        title="{{ t.token.character_name }}"></a>
+                    <a href="{% url 'industry:list_jobs' t.character.character_id %}">
+                        <img src="{{ t.character.portrait_url_64 }}" title="{{ t.character.character_name }}">
+                    </a>
                 </div>
             {% endfor %}
         </div>
 
-        <table class="table table-responsive table-striped table-hover table-aa table-dark ">
+        <table class="table table-responsive table-striped table-hover table-aa table-dark">
             <thead>
                 {% if items %}
                 <tr>
                     <th class="table-center" scope="col">#</th>
                     <th class="table-center" scope="col">Station</th>
                     <th class="table-center" scope="col">Activity</th>
-                    <th class="table-center" scope="col" >Blueprint</th>
+                    <th class="table-center" scope="col">Blueprint</th>
                     <th class="table-center" scope="col">Progress</th>
                     <th class="table-center" scope="col">Time Remaining (aprox.)</th>
                     <th class="table-center" scope="col">Duration</th>
@@ -43,11 +44,12 @@
                 </tr>
                 {% endif %}
             </thead>
+
             <tbody>
                 {% for i in items %}
                     {% include 'industry/jobs_list_snippet.html' %}
                 {% empty %}
-                    <h2>No Industry Jobs running for {{ character_name }}</h2>
+                    <h2>No Industry Jobs running for {{ character_data.character_name }}</h2>
                 {% endfor %}
 
             </tbody>
@@ -57,10 +59,6 @@
 
     </div>
 
-    <div class="delete-user">
-        <a href="{% url 'industry:character-delete' character_data.token_id %}" class="btn btn-danger">Delete {{ character_data.character_name }}</a>
-
-    </div>
 
 {% endblock %}
 {% block extra_javascript %}

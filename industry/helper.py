@@ -69,7 +69,7 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
     try:
         facility = Facility.objects.filter(facility_id=facility_id).first()
 
-        if facility:
+        if facility and facility.solar_system is not None:
             return facility
 
         # get structure
@@ -80,13 +80,14 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
         if r.status_code == 200:
             station = json.loads(r.content)
 
-            facility = Facility(
-                facility_id=facility_id,
-                name=station['name'],
-                owner_id=station['owner_id'],
-                solar_system_id=station['solar_system_id'],
-                type_id=station['type_id']
-                )
+            if not facility:
+                facility = Facility()
+
+            facility.facility_id = facility_id
+            facility.name = station['name']
+            facility.owner_id = station['owner_id']
+            facility.solar_system_id = station['solar_system_id']
+            facility.type_id = station['type_id']
             facility.save()
 
             return facility
@@ -111,7 +112,8 @@ def _get_character_name(_request_headers: dict, character_id: str) -> str:
             cache_character_id[character_id] = character['name']
             return character['name']
 
-    except:
+    except Exception as ex:
+        logger.error(f'error getting character name by id => {ex}')
         return None
 
 
