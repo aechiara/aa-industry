@@ -7,7 +7,7 @@ logger = get_extension_logger(__name__)
 # Create your tasks here
 
 
-# Example Task
-@shared_task
-def my_task():
-    pass
+# Example Task:
+# @shared_task
+# def my_task():
+#     pass
