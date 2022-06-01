@@ -86,7 +86,7 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
             facility.facility_id = facility_id
             facility.name = station['name']
             facility.owner_id = station['owner_id']
-            facility.solar_system_id = station['solar_system_id']
+            facility.solar_system = station['solar_system_id']
             facility.type_id = station['type_id']
             facility.save()
 
