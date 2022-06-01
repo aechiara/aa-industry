@@ -28,7 +28,7 @@ setup(
         "Framework :: Django",
         "Framework :: Django :: 3.1",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",  # example license
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",
