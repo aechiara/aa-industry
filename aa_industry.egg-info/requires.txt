@@ -1,2 +1,0 @@
-allianceauth>=2.8.2
-django-eveuniverse>=0.8.0
