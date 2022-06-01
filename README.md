@@ -8,7 +8,7 @@ This is an Industry plugin app for [Alliance Auth](https://gitlab.com/allianceau
 
 ## Installation
 
-Just run the pip command to install
+Run the pip command to install
 ```shell
 $ pip install aa-industry
 ```

@@ -59,9 +59,10 @@ def _get_activity_by_id(activity_id: int) -> str:
         6: "Duplicating",
         7: "Reverse Engineering",
         8: "Invention",
+        9: "Reaction",
     }
 
-    return activities[activity_id]
+    return activities[activity_id] if activity_id in activities.keys() else activity_id
 
 
 def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
