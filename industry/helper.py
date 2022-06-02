@@ -93,7 +93,7 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
             return facility
 
     except Exception as exxx:
-        logger.err(exxx)
+        logger.error(exxx)
         return None
 
 
