@@ -1,6 +1,6 @@
 import logging
 
-from eveuniverse.models import EveEntity
+from eveuniverse.models import EveEntity, EveSolarSystem
 from .models import Facility
 
 from datetime import datetime, timedelta
@@ -83,10 +83,15 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
             if not facility:
                 facility = Facility()
 
+            _solar_system = EveSolarSystem.objects.get_or_create(id=station['solar_system_id'])
+
+            if len(_solar_system) > 0:
+                solar_system = _solar_system[0]
+
             facility.facility_id = facility_id
             facility.name = station['name']
             facility.owner_id = station['owner_id']
-            facility.solar_system = station['solar_system_id']
+            facility.solar_system = solar_system
             facility.type_id = station['type_id']
             facility.save()
 
