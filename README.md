@@ -3,7 +3,7 @@
 This is an Industry plugin app for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth) (AA) that can be used as starting point to develop custom plugins.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![python](https://img.shields.io/badge/python-3.6-informational)
+![python](https://img.shields.io/badge/python-3.7-informational)
 ![django](https://img.shields.io/badge/django-3.1-informational)
 
 ## Installation
@@ -20,6 +20,26 @@ run the migrations and collect static commands
 $ python manage.py migrate
 $ python manage.py collectstatic
 ```
+
+## Updating
+
+Run the pip command to install
+```shell
+$ pip install -U aa-industry
+```
+
+or 
+
+```shell
+$ pip install --upgrade aa-industry
+```
+
+run the migrations and collect static commands
+```shell
+$ python manage.py migrate
+$ python manage.py collectstatic
+```
+
 
 ## Permissions
 
