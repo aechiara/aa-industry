@@ -21,8 +21,8 @@
         <div class="users-panel">
             {% for t in user_tokens %}
                 <div class="">
-                    <a href="{% url 'industry:list_jobs' t.character.character_id %}">
-                        <img src="{{ t.character.portrait_url_64 }}" title="{{ t.character.character_name }}">
+                    <a href="{% url 'industry:list_jobs' t.character_ownership.character.character_id %}">
+                        <img src="{{ t.character_ownership.character.portrait_url_64 }}" title="{{ t.character_ownership.character.character_name }}">
                     </a>
                 </div>
             {% endfor %}

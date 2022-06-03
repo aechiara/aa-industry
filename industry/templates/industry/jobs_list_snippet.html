@@ -10,6 +10,9 @@
     <td class="">
         <div class="activity-description">
             {% if i.is_corp_job %}
+                <img title="Corporation Job - {{ i.installer_corp_name }}"
+                    src="https://images.evetech.net/corporations/{{ i.installer_corp }}/logo?size=32" />
+                &nbsp;
                 <img title="Corporation Job - {{ i.installer_name }}"
                     src="https://images.evetech.net/characters/{{ i.installer_id }}/portrait?size=32" />
             {% endif %}

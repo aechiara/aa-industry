@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('eveuniverse', '0007_evetype_description'),
         ('industry', '0002_delete_usertoken'),
@@ -19,6 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facility',
             name='solar_system',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='eveuniverse.evesolarsystem'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    to='eveuniverse.evesolarsystem'),
         ),
     ]

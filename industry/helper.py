@@ -1,5 +1,6 @@
 import logging
 
+from bravado.client import SwaggerClient
 from eveuniverse.models import EveEntity, EveSolarSystem
 from .models import Facility
 
@@ -10,13 +11,16 @@ import requests
 logger = logging.getLogger(__name__)
 
 cache_character_id = {}
+cache_corporation_id = {}
 
 
 def _process_jobs(_request_headers, jobs, is_corp: bool = False) -> list:
     _processed = list()
     cache_character_id.clear()
+    cache_corporation_id.clear()
 
     if jobs:
+
         for j in jobs:
             job_details = dict()
             job_details['is_corp_job'] = is_corp
@@ -41,11 +45,16 @@ def _process_jobs(_request_headers, jobs, is_corp: bool = False) -> list:
                 job_details['station_name'] = station.name
 
             if is_corp:
-                job_details['installer_name'] = _get_character_name(_request_headers, job_details['installer_id'])
+                job_character = _get_character(_request_headers, job_details['installer_id'])
+                job_details['installer_name'] = job_character['name']
+                job_details['installer_corp'] = job_character['corporation_id']
+                job_details['installer_corp_name'] = job_character['corporation'].get('description')
 
             _processed.append(job_details)
 
     cache_character_id.clear()
+    cache_corporation_id.clear()
+
     return _processed
 
 
@@ -71,17 +80,15 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
 
         if facility and facility.solar_system is not None:
             return facility
+        else:
+            facility = Facility()
 
-        # get structure
         r = requests.get(
             f'https://esi.evetech.net/latest/universe/structures/{facility_id}/?datasource=tranquility',
             headers=_request_headers
         )
         if r.status_code == 200:
             station = json.loads(r.content)
-
-            if not facility:
-                facility = Facility()
 
             _solar_system = EveSolarSystem.objects.get_or_create(id=station['solar_system_id'])
 
@@ -102,7 +109,7 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
         return None
 
 
-def _get_character_name(_request_headers: dict, character_id: str) -> str:
+def _get_character(_request_headers: dict, character_id: str) -> dict:
     try:
         if character_id in cache_character_id.keys():
             return cache_character_id.get(character_id)
@@ -114,8 +121,35 @@ def _get_character_name(_request_headers: dict, character_id: str) -> str:
         )
         if r.status_code == 200:
             character = json.loads(r.content)
-            cache_character_id[character_id] = character['name']
-            return character['name']
+            corporation = _get_corporation_name(_request_headers, character['corporation_id'])
+            character['corporation'] = corporation
+            cache_character_id[character_id] = character
+            return character
+
+        return None
+
+    except Exception as ex:
+        logger.error(f'error getting character name by id => {ex}')
+        return None
+
+
+def _get_corporation_name(_request_headers, corporation_id: int) -> dict:
+
+    try:
+        if corporation_id in cache_corporation_id.keys():
+            return cache_corporation_id.get(corporation_id)
+
+        # get character name
+        r = requests.get(
+            f'https://esi.evetech.net/latest/corporations/{corporation_id}/?datasource=tranquility',
+            headers=_request_headers
+        )
+        if r.status_code == 200:
+            corporation = json.loads(r.content)
+            cache_corporation_id[corporation_id] = corporation
+            return corporation
+
+        return None
 
     except Exception as ex:
         logger.error(f'error getting character name by id => {ex}')

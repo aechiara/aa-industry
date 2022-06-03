@@ -1,3 +1,5 @@
+from allianceauth.authentication.models import CharacterOwnership
+from allianceauth.eveonline.models import EveCharacter
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -9,6 +11,25 @@ User = get_user_model()
 
 class Industry(models.Model):
     pass
+
+
+class UserCharacters(models.Model):
+    user = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
+    character_ownership = models.OneToOneField(
+        CharacterOwnership,
+        related_name="industry_character",
+        on_delete=models.CASCADE,
+        primary_key=True,
+        help_text="ownership of this character on Auth",
+    )
+
+    def __str__(self):
+        return f'{self.user.profile.main_character} - {self.character_ownership.character}'
+
+    class Meta:
+        ordering = ['user']
+        verbose_name = _('User x Characters')
+        verbose_name_plural = _('User x Characters')
 
 
 class Facility(models.Model):
