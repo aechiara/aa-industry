@@ -1,6 +1,6 @@
 import logging
 
-from bravado.client import SwaggerClient
+from allianceauth.eveonline.evelinks.eveimageserver import character_portrait_url
 from eveuniverse.models import EveEntity, EveSolarSystem
 from .models import Facility
 
@@ -36,6 +36,10 @@ def _process_jobs(_request_headers, jobs, is_corp: bool = False) -> list:
             job_details['end_date'] = _fromStrToDate(j.get('end_date'))
             job_details['status'] = j.get('status')
             job_details['installer_id'] = j.get('installer_id')
+            job_details['installer_portrait_url_32'] = character_portrait_url(j.get('installer_id'), 32)
+            job_details['installer_portrait_url_64'] = character_portrait_url(j.get('installer_id'), 64)
+            job_details['installer_portrait_url_128'] = character_portrait_url(j.get('installer_id'), 128)
+            job_details['installer_portrait_url_256'] = character_portrait_url(j.get('installer_id'), 256)
 
             station = _get_structure(_request_headers, j.get('facility_id'))
             if not station:

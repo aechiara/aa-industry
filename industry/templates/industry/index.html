@@ -1,4 +1,6 @@
-{% extends './base.html' %} {% load i18n %} {% load static %} {% load humanize %} {% load tz %} {% block details %}
+{% extends './base.html' %}
+{% load i18n %} {% load static %} {% load humanize %} {% load tz %} {% block details %}
+{% load evelinks %}
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -22,10 +24,12 @@
             {% for t in user_tokens %}
                 <div class="">
                     <a href="{% url 'industry:list_jobs' t.character_ownership.character.character_id %}">
-                        <img src="{{ t.character_ownership.character.portrait_url_64 }}" title="{{ t.character_ownership.character.character_name }}">
+                        <img src="{{ t.character_ownership.character.portrait_url_64 }}"
+                             title="{{ t.character_ownership.character.character_name }}">
                     </a>
                 </div>
             {% endfor %}
+
         </div>
 
         <table class="table table-responsive table-striped table-hover table-aa table-dark">
@@ -186,10 +190,9 @@
       margin: -2px;
     }
 
-    .delete-user {
+    .blueprint-cell {
         display: flex;
-        //margin-right: 5px;
-        justify-content: end;
+        align-items: center;
     }
 
 </style>

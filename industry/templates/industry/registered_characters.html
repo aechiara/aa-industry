@@ -1,4 +1,4 @@
-{% extends './base.html' %} {% load i18n %} {% load static %} {% load humanize %} {% load tz %}
+{% extends './base.html' %}{% load i18n %} {% load static %} {% load humanize %} {% load tz %}
 
 {% block details %}
 
@@ -11,7 +11,9 @@
     <div class="users-panel char-selector">
         <div class="characters">
             <a href="{% url 'industry:selector' %}">
-                <div class="characters-portrait"><img src="https://images.evetech.net/characters/1/portrait?size=256"></div>
+                <div class="characters-portrait">
+                    <img src="https://images.evetech.net/characters/1/portrait?size=256">
+                </div>
                 <div class="characters-name brn btn-danger">Add Character</div>
             </a>
         </div>
