@@ -19,42 +19,41 @@ def _process_jobs(_request_headers, jobs, is_corp: bool = False) -> list:
     cache_character_id.clear()
     cache_corporation_id.clear()
 
-    if jobs:
+    for j in jobs:
+        job_details = dict()
+        job_details['is_corp_job'] = is_corp
+        job_details['job_id'] = j.get('job_id')
 
-        for j in jobs:
-            job_details = dict()
-            job_details['is_corp_job'] = is_corp
+        a = EveEntity.objects.get_or_create_esi(id=j.get('blueprint_type_id'))[0]
+        job_details['blueprint_name'] = a.name
+        job_details['blueprint_id'] = a.id
 
-            a = EveEntity.objects.get_or_create_esi(id=j.get('blueprint_type_id'))[0]
-            job_details['blueprint_name'] = a.name
-            job_details['blueprint_id'] = a.id
+        job_details['activity_id'] = _get_activity_by_id(j.get('activity_id'))
 
-            job_details['activity_id'] = _get_activity_by_id(j.get('activity_id'))
+        job_details['duration'] = _secondsToTime(j.get('duration'))
+        job_details['start_date'] = _fromStrToDate(j.get('start_date'))
+        job_details['end_date'] = _fromStrToDate(j.get('end_date'))
+        job_details['status'] = j.get('status')
+        job_details['installer_id'] = j.get('installer_id')
+        job_details['installer_portrait_url_32'] = character_portrait_url(j.get('installer_id'), 32)
+        job_details['installer_portrait_url_64'] = character_portrait_url(j.get('installer_id'), 64)
+        job_details['installer_portrait_url_128'] = character_portrait_url(j.get('installer_id'), 128)
+        job_details['installer_portrait_url_256'] = character_portrait_url(j.get('installer_id'), 256)
 
-            job_details['duration'] = _secondsToTime(j.get('duration'))
-            job_details['start_date'] = _fromStrToDate(j.get('start_date'))
-            job_details['end_date'] = _fromStrToDate(j.get('end_date'))
-            job_details['status'] = j.get('status')
-            job_details['installer_id'] = j.get('installer_id')
-            job_details['installer_portrait_url_32'] = character_portrait_url(j.get('installer_id'), 32)
-            job_details['installer_portrait_url_64'] = character_portrait_url(j.get('installer_id'), 64)
-            job_details['installer_portrait_url_128'] = character_portrait_url(j.get('installer_id'), 128)
-            job_details['installer_portrait_url_256'] = character_portrait_url(j.get('installer_id'), 256)
+        station = _get_structure(_request_headers, j.get('facility_id'))
+        if not station:
+            logger.error('error getting station')
+            job_details['station_name'] = ''
+        else:
+            job_details['station_name'] = station.name
 
-            station = _get_structure(_request_headers, j.get('facility_id'))
-            if not station:
-                logger.error('error getting station')
-                job_details['station_name'] = ''
-            else:
-                job_details['station_name'] = station.name
+        if is_corp:
+            job_character = _get_character(_request_headers, job_details['installer_id'])
+            job_details['installer_name'] = job_character['name']
+            job_details['installer_corp'] = job_character['corporation_id']
+            job_details['installer_corp_name'] = job_character['corporation'].get('description')
 
-            if is_corp:
-                job_character = _get_character(_request_headers, job_details['installer_id'])
-                job_details['installer_name'] = job_character['name']
-                job_details['installer_corp'] = job_character['corporation_id']
-                job_details['installer_corp_name'] = job_character['corporation'].get('description')
-
-            _processed.append(job_details)
+        _processed.append(job_details)
 
     cache_character_id.clear()
     cache_corporation_id.clear()
