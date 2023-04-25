@@ -97,6 +97,8 @@ def _get_structure(_request_headers: dict, facility_id: str) -> Facility:
 
             if len(_solar_system) > 0:
                 solar_system = _solar_system[0]
+            else:
+                solar_system = _solar_system
 
             facility.facility_id = facility_id
             facility.name = station['name']

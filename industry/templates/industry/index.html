@@ -99,7 +99,13 @@
             p.ariaValueMin = ds.getTime()
             p.ariaValueMax = de.getTime()
             p.ariaValueNow = new Date().getUTCMilliseconds()
-            p.innerHTML = `<div class="progress-bar-custom" alt="${parseInt(perc)}%">${parseInt(perc)}%</div>`
+
+            if ( perc < 50 ) {
+                p.innerHTML = `<div class="progress-bar-custom2" alt="${parseInt(perc)}%">${parseInt(perc)}%</div>`
+            } else {
+                p.innerHTML = `<div class="progress-bar-custom" alt="${parseInt(perc)}%">${parseInt(perc)}%</div>`
+            }
+
             p.style.width=`${perc}%`
 
             let timeRemaining =  de.getTime() - new Date().getTime()
@@ -168,11 +174,23 @@
     }
 
     .progress-bar-custom {
+        background-color: #ffffff;
         margin-top: 12px;
         font-weight: bolder;
         font-size: larger;
         //color: #f0f0f0;
         color: #000fff;
+        text-align: center;
+    }
+    .progress-bar-custom2 {
+        margin-left: 65px;
+        background-color: #ffffff;
+        margin-top: 12px;
+        font-weight: bolder;
+        font-size: larger;
+        //color: #f0f0f0;
+        color: #000fff;
+        text-align: center;
     }
 
     .activity-description {
