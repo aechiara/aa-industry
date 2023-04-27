@@ -24,7 +24,8 @@ def _process_jobs(_request_headers, jobs, is_corp: bool = False) -> list:
         job_details['is_corp_job'] = is_corp
         job_details['job_id'] = j.get('job_id')
 
-        a = EveEntity.objects.get_or_create_esi(id=j.get('blueprint_type_id'))[0]
+        # a = EveEntity.objects.get_or_create_esi(id=j.get('blueprint_type_id'))[0]
+        a = EveEntity.objects.get_or_create_esi(id=j.get('blueprint_id'))[0]
         job_details['blueprint_name'] = a.name
         job_details['blueprint_id'] = a.id
 
